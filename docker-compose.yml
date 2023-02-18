@@ -1,0 +1,28 @@
+version: '3'
+
+services:
+  nginx-proxy:
+    container_name: nginxproxy
+    restart: always
+    image: jwilder/nginx-proxy
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - ./nginx.tmpl:/app/nginx.tmpl
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+      - ./certs:/etc/nginx/certs
+      - ./vhost:/etc/nginx/vhost.d
+      - ./html:/usr/share/nginx/html
+      - ../temporder/media:/home/temporder/media
+      - ../temporder/static:/home/temporder/static
+      - ../orderbluegold/media:/home/orderbluegold/media
+      - ../orderbluegold/static:/home/orderbluegold/static
+      - ../competition/media:/home/competition/media
+      - ../competition/static:/home/competition/static
+      - ../smartblue/media:/home/smartblue/media
+      - ../smartblue/static:/home/smartblue/static
+networks:
+  default:
+    external:
+      name: proxynetwork

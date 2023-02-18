@@ -1,0 +1,7 @@
+docker run --detach \
+    --name nginx-proxy-acme \
+    --volumes-from nginxproxy \
+    --volume /var/run/docker.sock:/var/run/docker.sock:ro \
+    --volume acme:/etc/acme.sh \
+    --env "DEFAULT_EMAIL=battuvshin@bosa.mn" \
+    nginxproxy/acme-companion
